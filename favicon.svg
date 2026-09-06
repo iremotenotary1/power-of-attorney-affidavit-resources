@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="POA and Affidavit Resource Desk">
+  <rect width="64" height="64" rx="12" fill="#0A1C33"/>
+  <circle cx="32" cy="32" r="18" fill="none" stroke="#9A7B3C" stroke-width="3"/>
+  <circle cx="32" cy="32" r="12" fill="none" stroke="#2563EB" stroke-width="2"/>
+  <path d="M22 38 V26 h8.5 c3.4 0 5.5 1.8 5.5 4.5 0 2.7-2.1 4.5-5.5 4.5H26.5V38z M26.5 30.8H29c1.5 0 2.4-.7 2.4-1.8S30.5 27.2 29 27.2h-2.5z" fill="#F3EFE6"/>
+  <rect x="38" y="26" width="3.2" height="12" rx="1" fill="#F3EFE6"/>
+</svg>

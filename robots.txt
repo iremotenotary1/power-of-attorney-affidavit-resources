@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://TEMP-POA-AFFIDAVIT-PILOT-ORIGIN.invalid/sitemap.xml
