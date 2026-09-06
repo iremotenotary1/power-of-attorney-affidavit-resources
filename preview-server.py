@@ -39,6 +39,11 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             "/.env",
             "/node_modules",
             "/preview-server",
+            "/build-render.mjs",
+            "/render.yaml",
+            "/.gitignore",
+            "/package.json",
+            "/package-lock.json",
         )
         if any(lowered.startswith(p) or lowered == p.rstrip("/") for p in blocked_prefixes) or "/." in lowered:
             return self.send_branded_404()

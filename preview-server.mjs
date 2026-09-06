@@ -30,6 +30,10 @@ function isBlocked(urlPath) {
     "/preview-server.py",
     "/preview-server.mjs",
     "/.gitignore",
+    "/build-render.mjs",
+    "/render.yaml",
+    "/package.json",
+    "/package-lock.json",
   ];
   return blocked.some((item) => lowered === item || lowered.startsWith(item + "/"));
 }

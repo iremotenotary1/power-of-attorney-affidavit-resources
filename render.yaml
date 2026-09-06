@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: power-of-attorney-affidavit-resources
+    runtime: static
+    plan: free
+    branch: main
+    autoDeployTrigger: commit
+    buildCommand: node build-render.mjs
+    staticPublishPath: ./dist
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: accelerometer=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), publickey-credentials-get=(), usb=(), interest-cohort=()
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=31536000
+      - path: /
+        name: Cache-Control
+        value: no-cache, must-revalidate
+      - path: /*.html
+        name: Cache-Control
+        value: no-cache, must-revalidate
+      - path: /robots.txt
+        name: Cache-Control
+        value: public, max-age=300, must-revalidate
+      - path: /sitemap.xml
+        name: Cache-Control
+        value: public, max-age=300, must-revalidate
+      - path: /*.css
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /*.js
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /*.png
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /*.svg
+        name: Cache-Control
+        value: public, max-age=604800

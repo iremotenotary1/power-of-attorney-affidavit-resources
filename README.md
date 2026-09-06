@@ -12,20 +12,42 @@ This property is published and operated by iRemoteNotary. It is not a government
 
 Help visitors understand powers of attorney, affidavits, acknowledgments, jurats, oaths, affirmations, and overseas-execution considerations, then use a mixed public-plus-iRemoteNotary resource list before confirming requirements or booking an eligible online-notary session.
 
-## Temporary production origin
+## Production origin
 
-Canonical, Open Graph, Twitter, JSON-LD, `robots.txt`, and `sitemap.xml` currently use this placeholder:
+Intended Render production origin:
 
-`https://TEMP-POA-AFFIDAVIT-PILOT-ORIGIN.invalid`
+`https://power-of-attorney-affidavit-resources.onrender.com`
 
-**Do not deploy while this placeholder remains.**
+Canonical, Open Graph, Twitter, JSON-LD, `robots.txt`, and `sitemap.xml` use that origin.
 
-Before the first public deploy:
+Canonical page URLs:
 
-1. Choose a hosting platform and final production origin.
-2. Replace every occurrence of the temporary origin.
-3. Re-validate canonicals, Open Graph/Twitter URLs, JSON-LD, `robots.txt`, and `sitemap.xml`.
-4. Only then connect hosting and deploy.
+- `https://power-of-attorney-affidavit-resources.onrender.com/`
+- `https://power-of-attorney-affidavit-resources.onrender.com/privacy.html`
+- `https://power-of-attorney-affidavit-resources.onrender.com/contact.html`
+
+## Render static deployment
+
+This repository is prepared for a Render static site that publishes **only** the allowlisted `dist` directory.
+
+- Blueprint: `render.yaml`
+- Build command: `node build-render.mjs`
+- Publish path: `./dist`
+- Auto-deploy: commits to `main`
+- Plan: free static site
+- No environment variables, secrets, or custom domain in the blueprint
+
+`build-render.mjs` recreates `dist` and copies only:
+
+`index.html`, `privacy.html`, `contact.html`, `404.html`, `styles.css`, `site.js`, `favicon.svg`, `og-image.png`, `robots.txt`, `sitemap.xml`
+
+These repository files must not become public deployment artifacts:
+
+`README.md`, `.gitignore`, `render.yaml`, `build-render.mjs`, `preview-server.mjs`, `preview-server.py`, `.git/*`, `.env*`, source maps, and backups.
+
+Security headers are declared in `render.yaml` (`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options: DENY`, and HSTS). No Content-Security-Policy is set yet because it has not been proven against the FeedWalls iframe on this host.
+
+Connecting the GitHub repository to Render and triggering the first deploy are separate steps outside this local finalize/push workflow.
 
 ## FeedWalls
 
@@ -77,8 +99,12 @@ The iframe starts at 400px and uses `referrerpolicy="strict-origin-when-cross-or
 - `sitemap.xml`
 - `.gitignore`
 - `README.md`
+- `build-render.mjs`
+- `render.yaml`
+- `preview-server.mjs`
+- `preview-server.py`
 
-`privacy.html`, `contact.html`, and `404.html` are `noindex,follow` and are omitted from `sitemap.xml`.
+`privacy.html`, `contact.html`, and `404.html` are `noindex,follow` and are omitted from `sitemap.xml`. `/dist/` is gitignored build output.
 
 ## Local preview
 
@@ -88,7 +114,14 @@ From this folder, using an already-installed runtime and no package install:
 node preview-server.mjs
 ```
 
-`preview-server.mjs` (and optional `preview-server.py`) are local tooling only. They serve branded `404.html` for unknown paths and block README, Git, env, and similar sensitive paths. Do not upload README, `.git`, environment files, editor files, backup files, preview servers, or source maps when a host is selected later.
+To validate the allowlisted publish output:
+
+```bash
+node build-render.mjs
+node preview-server.mjs
+```
+
+Point a second local check at `dist` (for example by temporarily serving that folder) and confirm only the ten public files are present. Preview helpers remain in the repository but must not enter `dist`.
 
 Then open:
 
@@ -104,17 +137,9 @@ Then open:
 - http://127.0.0.1:4190/robots.txt
 - http://127.0.0.1:4190/sitemap.xml
 
-## Future hosting protections
+## Hosting notes
 
-When a host is chosen, configure at least:
-
-- custom `404.html` for unknown paths
-- block public access to `.git`, `.env*`, README, editor folders, backups, and source maps
-- HTTPS redirects
-- sensible cache headers for static assets
-- tested Content-Security-Policy only after FeedWalls embed behavior is verified on that host
-
-Do not add provider-specific config files until the platform is selected.
+Render Blueprint headers already cover the baseline security headers. After the first live deploy, confirm branded 404 behavior for unknown paths on the Render host, then decide whether a tested Content-Security-Policy can be added without breaking FeedWalls.
 
 ## Content safeguards
 
