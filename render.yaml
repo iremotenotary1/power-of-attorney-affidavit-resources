@@ -2,7 +2,6 @@ services:
   - type: web
     name: power-of-attorney-affidavit-resources
     runtime: static
-    plan: free
     branch: main
     autoDeployTrigger: commit
     buildCommand: node build-render.mjs
